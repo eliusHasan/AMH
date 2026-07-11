@@ -156,36 +156,42 @@ export default function Home() {
                   title: "AI Automation",
                   desc: "Business process automation with n8n, Zapier, and Make — connecting your CRM, APIs, and internal tools into hands-free AI workflows.",
                   color: "from-pink-500/20 to-rose-500/20 border-pink-500/10",
+                  href: "/services#ai-automation",
                 },
                 {
                   icon: Bot,
                   title: "AI Solutions",
                   desc: "Custom LLMs, vector database setup, automated workflows, and RAG architectures protecting client privacy.",
                   color: "from-purple-500/20 to-indigo-500/20 border-purple-500/10",
+                  href: "/services#ai-solutions",
                 },
                 {
                   icon: Smartphone,
                   title: "Mobile Apps",
                   desc: "Native iOS and Android systems built with Bluetooth pairings, real-time sync, and off-line support.",
                   color: "from-emerald-500/20 to-teal-500/20 border-emerald-500/10",
+                  href: "/services#mobile-apps",
                 },
                 {
                   icon: Cloud,
                   title: "Cloud & DevOps",
                   desc: "IaC with Terraform, Kubernetes clustering, secure CI/CD pipelines, and zero-downtime server migrations.",
                   color: "from-amber-500/20 to-orange-500/20 border-amber-500/10",
+                  href: "/services#cloud-devops",
                 },
                 {
                   icon: Globe,
                   title: "Web Platforms",
                   desc: "Ultra-fast Next.js React sites engineered for top core web vitals performance, SEO, and conversions.",
                   color: "from-blue-500/20 to-indigo-500/20 border-blue-500/10",
+                  href: "/services#web-platforms",
                 },
                 {
                   icon: Palette,
                   title: "UI/UX Design",
                   desc: "Conversion-focused interfaces, design systems, and interactive prototypes crafted for clarity, accessibility, and brand impact.",
                   color: "from-cyan-500/20 to-sky-500/20 border-cyan-500/10",
+                  href: "/services#ui-ux-design",
                 },
               ].map((service, index) => (
                 <motion.div
@@ -209,7 +215,7 @@ export default function Home() {
                   </div>
                   <div className="pt-6">
                     <Link
-                      href="/services"
+                      href={service.href}
                       className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
                     >
                       <span>Explore service</span>

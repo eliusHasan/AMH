@@ -186,3 +186,8 @@ body {
   opacity: 0.8;
   background: linear-gradient(90deg, var(--primary), hsl(215 36% 50%));
 }
+
+/* Anchor targets scroll clear of the fixed navbar */
+[id] {
+  scroll-margin-top: 6.5rem;
+}
