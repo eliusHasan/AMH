@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -52,13 +53,19 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary to-accent flex items-center justify-center text-primary-foreground font-bold text-lg shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
-              A
+            <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-md shadow-primary/20 ring-1 ring-black/5 group-hover:scale-105 transition-transform duration-300">
+              <Image
+                src="/kodenri-mark.png"
+                alt="Kodenri logo"
+                width={28}
+                height={28}
+                className="w-7 h-7"
+              />
             </div>
             <span className={`font-heading font-extrabold text-xl tracking-tight transition-all duration-300 ${
               isTransparent ? "text-white" : "bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent"
             }`}>
-              AMH <span className={isTransparent ? "font-light text-cyan-300" : "font-light text-primary"}>Info Tech</span>
+              Kodenri
             </span>
           </Link>
 

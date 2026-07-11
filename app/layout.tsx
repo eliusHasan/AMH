@@ -19,10 +19,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "AMH Info Tech | Enterprise AI & Software Development Solutions",
-    template: "%s | AMH Info Tech",
+    default: "Kodenri | Enterprise AI & Software Development Solutions",
+    template: "%s | Kodenri",
   },
-  description: "AMH Info Tech delivers world-class software development, custom AI integration, cloud infrastructure, mobile applications, and premium UI/UX design.",
+  description: "Kodenri delivers world-class software development, custom AI integration, cloud infrastructure, mobile applications, and premium UI/UX design.",
   keywords: [
     "Software Development",
     "AI Integration",
@@ -31,22 +31,22 @@ export const metadata: Metadata = {
     "Mobile Apps",
     "Cloud & DevOps",
     "UI/UX Design",
-    "AMH Info Tech",
+    "Kodenri",
   ],
-  authors: [{ name: "AMH Info Tech Team" }],
-  creator: "AMH Info Tech",
-  metadataBase: new URL("https://amhinfotech.com"),
+  authors: [{ name: "Kodenri Team" }],
+  creator: "Kodenri",
+  metadataBase: new URL("https://kodenri.com"),
   openGraph: {
-    title: "AMH Info Tech | Enterprise AI & Software Development Solutions",
+    title: "Kodenri | Enterprise AI & Software Development Solutions",
     description: "Enterprise-grade custom AI, web, mobile, and cloud software engineering.",
-    url: "https://amhinfotech.com",
-    siteName: "AMH Info Tech",
+    url: "https://kodenri.com",
+    siteName: "Kodenri",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AMH Info Tech | Enterprise AI & Software Development Solutions",
+    title: "Kodenri | Enterprise AI & Software Development Solutions",
     description: "Enterprise-grade custom AI, web, mobile, and cloud software engineering.",
   },
   robots: {

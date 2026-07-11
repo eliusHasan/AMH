@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Send, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -35,11 +36,17 @@ export function Footer() {
           {/* Brand Identity */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-accent flex items-center justify-center text-primary-foreground font-bold text-base shadow-md shadow-primary/20">
-                A
+              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-md shadow-primary/20 ring-1 ring-black/5">
+                <Image
+                  src="/kodenri-mark.png"
+                  alt="Kodenri logo"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6"
+                />
               </div>
               <span className="font-heading font-extrabold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
-                AMH <span className="font-light text-primary">Info Tech</span>
+                Kodenri
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -157,7 +164,7 @@ export function Footer() {
         {/* Legal and Copyright */}
         <div className="border-t border-border/40 pt-8 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div>
-            © {new Date().getFullYear()} AMH Info Tech. All rights reserved.
+            © {new Date().getFullYear()} Kodenri. All rights reserved.
           </div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-foreground transition-colors">

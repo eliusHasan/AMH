@@ -82,7 +82,7 @@ function ContactFormContent() {
               Message Sent!
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
-              Thank you for contacting AMH Info Tech. A technology advisor will audit your details and respond within 24 business hours.
+              Thank you for contacting Kodenri. A technology advisor will audit your details and respond within 24 business hours.
             </p>
           </motion.div>
         ) : (
@@ -227,8 +227,8 @@ export default function Contact() {
                     <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-semibold text-foreground">Business Inquiries</h4>
-                      <a href="mailto:contact@amhinfotech.com" className="text-xs sm:text-sm mt-0.5 hover:text-primary transition-colors">
-                        contact@amhinfotech.com
+                      <a href="mailto:contact@kodenri.com" className="text-xs sm:text-sm mt-0.5 hover:text-primary transition-colors">
+                        contact@kodenri.com
                       </a>
                     </div>
                   </div>

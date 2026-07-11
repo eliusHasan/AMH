@@ -53,7 +53,7 @@ const milestones = [
   {
     year: "2023",
     title: "Company Founded",
-    desc: "AMH Info Tech was established in Dhaka, Bangladesh, with a mission to deliver world-class enterprise software development solutions.",
+    desc: "Kodenri was established in Dhaka, Bangladesh, with a mission to deliver world-class enterprise software development solutions.",
   },
   {
     year: "2024",
@@ -112,7 +112,7 @@ export default function About() {
           <div className="absolute inset-0 -z-10 bg-background">
             <Image
               src="/about-hero.png"
-              alt="AMH Info Tech team at work"
+              alt="Kodenri team at work"
               fill
               className="object-cover object-center opacity-30 dark:opacity-85 mix-blend-overlay dark:mix-blend-normal"
               priority
@@ -143,7 +143,7 @@ export default function About() {
                     </span>
                   </h1>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                    AMH Info Tech is a premium software engineering agency partnering with visionary businesses to build secure, scalable, and intelligent applications that drive real-world results.
+                    Kodenri is a premium software engineering agency partnering with visionary businesses to build secure, scalable, and intelligent applications that drive real-world results.
                   </p>
                 </motion.div>
               </div>

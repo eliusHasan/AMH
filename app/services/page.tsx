@@ -32,7 +32,7 @@ const fadeUp: Variants = {
 };
 
 const consoleLines = [
-  { text: "amh-tech init --services", color: "text-[#A8C4EC]" },
+  { text: "kodenri init --services", color: "text-[#A8C4EC]" },
   { text: "✔ AI Agent Core: ACTIVE (12ms latency)", color: "text-emerald-400" },
   { text: "✔ Edge CDN Server Component Cache: HIT", color: "text-emerald-400" },
   { text: "✔ Terraform multi-region replica: ONLINE", color: "text-cyan-400" },
@@ -121,7 +121,7 @@ export default function Services() {
                       <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                       <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                     </div>
-                    <span className="text-[10px] text-white/40 select-none">amh-terminal.sh</span>
+                    <span className="text-[10px] text-white/40 select-none">kodenri-terminal.sh</span>
                     <Terminal className="w-3.5 h-3.5 text-white/35" />
                   </div>
                   
