@@ -17,11 +17,23 @@ import {
   ArrowRight,
   Sparkles,
   Terminal,
-  Activity,
-  Cpu
+  Users,
+  BadgeCheck,
+  Clock,
+  Handshake,
+  UserCheck,
+  MessageSquare,
+  RefreshCw,
+  FileText,
+  Lock,
+  Search,
+  LifeBuoy,
+  Zap,
+  DollarSign,
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { SectionHeader } from "@/components/section-header";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -40,13 +52,183 @@ const consoleLines = [
   { text: "✔ Uptime rate verified at 99.98%", color: "text-sky-400" },
 ];
 
+// Service catalog — titles for the first six match the landing page cards
+const services = [
+  {
+    id: "ai-automation",
+    icon: Workflow,
+    title: "AI Automation",
+    desc: "Reduce manual work by up to 80% with intelligent chatbots, AI assistants, workflow automation, and document processing — orchestrated with n8n, Make, Zapier, and Temporal, and tailored to your business needs.",
+    checklist: [
+      "n8n, Make & Zapier workflows",
+      "Intelligent chatbots & AI assistants",
+      "Document processing & OCR",
+      "AI agents (LangGraph, CrewAI)",
+    ],
+    image: "/hero-robot.png",
+    cta: "/contact?service=ai-automation",
+  },
+  {
+    id: "ai-solutions",
+    icon: Bot,
+    title: "AI Solutions",
+    desc: "Custom AI systems built on ChatGPT, Claude, Gemini, and open-source models — from RAG pipelines with vector databases to fine-tuned domain assistants that keep your proprietary data private.",
+    checklist: [
+      "LLM integration & fine-tuning",
+      "RAG pipelines & vector databases",
+      "LangChain / LlamaIndex frameworks",
+      "TensorFlow & PyTorch models",
+    ],
+    image: "/services-ai.png",
+    cta: "/contact?service=ai-solutions",
+  },
+  {
+    id: "web-platforms",
+    icon: Globe,
+    title: "Web Platforms",
+    desc: "Fast, secure, SEO-friendly, and scalable web applications that help businesses attract customers, automate operations, and increase revenue — built with React, Next.js, Vue, and Angular.",
+    checklist: [
+      "React, Next.js, Vue & Angular",
+      "Top Core Web Vitals scores",
+      "SEO-friendly architecture",
+      "Conversion-focused builds",
+    ],
+    image: "/services-web.png",
+    cta: "/contact?service=web-platforms",
+  },
+  {
+    id: "mobile-apps",
+    icon: Smartphone,
+    title: "Mobile Apps",
+    desc: "High-performance Android and iOS applications from a single codebase with Flutter and React Native — cutting development costs while delivering an exceptional user experience.",
+    checklist: [
+      "Flutter & React Native",
+      "Single codebase, both stores",
+      "Real-time sync & offline support",
+      "App Store & Play deployment",
+    ],
+    image: "/services-mobile.png",
+    cta: "/contact?service=mobile-apps",
+  },
+  {
+    id: "backend-apis",
+    icon: Server,
+    title: "Backend & API Development",
+    desc: "Secure, scalable, and high-performance backend systems with robust API architecture and third-party integrations — engineered with Node.js, NestJS, Express, and .NET on cloud-ready server architectures.",
+    checklist: [
+      "Node.js, NestJS & .NET services",
+      "PostgreSQL & MongoDB schemas",
+      "REST, GraphQL & WebSocket APIs",
+      "JWT & OAuth 2.0 authentication",
+    ],
+    image: "/services-backend.png",
+    cta: "/contact?service=backend-apis",
+  },
+  {
+    id: "cloud-devops",
+    icon: Cloud,
+    title: "Cloud & DevOps",
+    desc: "Deployment and management of systems on AWS, Google Cloud, and Microsoft Azure with performance optimization, security, and reliability enhancements — including Cloudflare CDN, DNS management, and DDoS protection.",
+    checklist: [
+      "AWS, GCP & Azure environments",
+      "Kubernetes & Docker clusters",
+      "CI/CD pipelines & IaC templates",
+      "Cloudflare CDN & DDoS protection",
+    ],
+    image: "/services-cloud.png",
+    cta: "/contact?service=cloud-devops",
+  },
+  {
+    id: "ui-ux-design",
+    icon: Palette,
+    title: "UI/UX Design",
+    desc: "Intuitive, visually appealing, and user-centric interfaces focused on usability, accessibility, and seamless customer experience — designed with Figma, Adobe XD, Framer, and Sketch.",
+    checklist: [
+      "Figma, Adobe XD & Framer",
+      "Design systems & prototypes",
+      "WCAG accessibility standards",
+      "Conversion-focused layouts",
+    ],
+    image: "/services-design.png",
+    cta: "/contact?service=ui-ux-design",
+  },
+  {
+    id: "qa-automation",
+    icon: ShieldCheck,
+    title: "QA & Software Testing",
+    desc: "Comprehensive quality assurance to ensure stable, reliable, and error-free applications — automation, unit, integration, smoke, and regression testing across all devices.",
+    checklist: [
+      "Selenium, Cypress & Playwright",
+      "Jest unit & integration suites",
+      "Postman API testing",
+      "Smoke & regression coverage",
+    ],
+    image: "/services-testing.png",
+    cta: "/contact?service=qa-testing",
+  },
+  {
+    id: "sla-support",
+    icon: Wrench,
+    title: "System Maintenance & Support",
+    desc: "Ongoing maintenance, monitoring, and technical support to ensure smooth, secure, long-term operation after deployment — including bug fixing, performance optimization, updates, and system monitoring.",
+    checklist: [
+      "3 months free support after launch",
+      "Bug fixing & performance tuning",
+      "Security audits & updates",
+      "24/7 system monitoring",
+    ],
+    image: "/services-support.png",
+    cta: "/contact?service=maintenance",
+  },
+];
+
+const whyChooseUs = [
+  { icon: UserCheck, title: "Dedicated Project Manager", tint: "text-sky-500 bg-sky-500/10 border-sky-500/20" },
+  { icon: MessageSquare, title: "Free Consultation & Requirement Analysis", tint: "text-violet-500 bg-violet-500/10 border-violet-500/20" },
+  { icon: RefreshCw, title: "Agile Development Process", tint: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
+  { icon: FileText, title: "Weekly Progress Reports", tint: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
+  { icon: Lock, title: "NDA & Data Security Assurance", tint: "text-rose-500 bg-rose-500/10 border-rose-500/20" },
+  { icon: Search, title: "SEO-Friendly Development", tint: "text-cyan-500 bg-cyan-500/10 border-cyan-500/20" },
+  { icon: Cloud, title: "Scalable Cloud Infrastructure", tint: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20" },
+  { icon: LifeBuoy, title: "3 Months Free Support After Launch", tint: "text-teal-500 bg-teal-500/10 border-teal-500/20" },
+  { icon: Zap, title: "Fast Delivery & Transparent Communication", tint: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
+  { icon: DollarSign, title: "Competitive Pricing", tint: "text-lime-600 bg-lime-500/10 border-lime-500/20" },
+];
+
+const engagementModels = [
+  {
+    icon: Users,
+    name: "Dedicated Team",
+    desc: "A full-time development team works exclusively on your project under your direction or with our project manager — full control, high productivity, and scalability for long-term needs.",
+    bestFor: "Ongoing product development, startups, and companies requiring continuous updates.",
+  },
+  {
+    icon: BadgeCheck,
+    name: "Fixed-Price",
+    desc: "A clearly defined project scope, timeline, and cost agreed before development begins. We deliver on time and within budget, ensuring quality and accountability at every stage.",
+    bestFor: "Projects with well-defined requirements and clear deliverables.",
+  },
+  {
+    icon: Clock,
+    name: "Hourly / Time-Based",
+    desc: "Development tasks are billed on actual working hours. This flexible model lets you adjust workload and priorities according to business needs.",
+    bestFor: "Maintenance, feature updates, or short-term development support.",
+  },
+  {
+    icon: Handshake,
+    name: "Partnership / Collaboration",
+    desc: "For clients or consultants with local networks, we jointly deliver software solutions — Kodenri provides development expertise while partners manage client relationships and coordination.",
+    bestFor: "Agencies, consultants, or IT professionals seeking a reliable development partner.",
+  },
+];
+
 export default function Services() {
   return (
     <>
       <Navbar />
 
       <main className="flex-grow bg-background">
-        
+
         {/* ── Immersive Split Header ── */}
         <section className="relative pt-40 pb-28 px-4 overflow-hidden bg-background min-h-[75vh] flex items-center">
           {/* Circuit Board Background */}
@@ -65,7 +247,7 @@ export default function Services() {
 
           <div className="max-w-7xl mx-auto w-full relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              
+
               {/* Left Side: Bold Header Details */}
               <div className="lg:col-span-7 text-left space-y-6">
                 <motion.div
@@ -85,9 +267,9 @@ export default function Services() {
                     </span>
                   </h1>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                    We partner with enterprises to engineer scalable software products, automate operations with AI agent architectures, and secure cloud environments.
+                    We offer a full range of software development and digital solutions designed to meet diverse business needs — delivering reliable, scalable, and cost-effective systems through advanced technology and professional collaboration.
                   </p>
-                  
+
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-4 pt-2">
                     <Link
@@ -98,10 +280,10 @@ export default function Services() {
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                     <a
-                      href="#workflows"
+                      href="#engagement-models"
                       className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold text-foreground border border-border bg-secondary/50 hover:bg-secondary/80 transition-all duration-300 hover:-translate-y-0.5"
                     >
-                      Explore Workflows
+                      Engagement Models
                     </a>
                   </div>
                 </motion.div>
@@ -125,7 +307,7 @@ export default function Services() {
                     <span className="text-[10px] text-white/40 select-none">kodenri-terminal.sh</span>
                     <Terminal className="w-3.5 h-3.5 text-white/35" />
                   </div>
-                  
+
                   {/* Console Output */}
                   <div className="p-5 space-y-3 font-mono text-[11px] sm:text-xs">
                     {consoleLines.map((line, idx) => (
@@ -140,7 +322,7 @@ export default function Services() {
                         <span>{line.text}</span>
                       </motion.div>
                     ))}
-                    
+
                     {/* Pulsing prompt line */}
                     <div className="flex gap-2 items-center text-white/50 pt-2">
                       <span className="text-white/35 select-none">{consoleLines.length + 1}</span>
@@ -154,532 +336,154 @@ export default function Services() {
           </div>
         </section>
 
-        {/* ── Bento Grid Section ── */}
-        <section className="py-24 px-4 relative">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-[minmax(320px,_auto)]">
+        {/* ── Services — Alternating Rows ── */}
+        <section className="py-20 sm:py-28 px-4 bg-secondary/5">
+          <div className="max-w-6xl mx-auto">
+            <SectionHeader
+              badge="Services"
+              title="How We Help You"
+              subtitle="A full range of software development and digital solutions designed to meet diverse business needs."
+            />
 
-              {/* Card 1: AI Automation (col-span-12 - Full width) */}
-              <motion.div
-                id="ai-automation"
-                custom={0}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-12 group relative p-8 sm:p-10 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-sm hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  01
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start h-full">
-                  <div className="md:col-span-7 space-y-6 text-left relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Workflow className="w-6 h-6" />
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="font-heading font-black text-2xl sm:text-3xl text-foreground tracking-tight">AI Automation &amp; Integrations</h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        Automate repetitive business processes end-to-end with n8n, Zapier, and Make. We connect your CRM, email, spreadsheets, and internal APIs into intelligent workflows that route data, trigger AI agents, and eliminate manual busywork around the clock.
-                      </p>
-                    </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-muted-foreground/80">
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> n8n &amp; Zapier workflow design</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> CRM &amp; ERP integrations</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> AI-powered lead routing</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Scheduled data sync jobs</li>
-                    </ul>
-                  </div>
-
-                  {/* Workflow Pipeline Visual */}
-                  <div className="md:col-span-5 relative z-10 w-full h-full min-h-[180px] rounded-2xl border border-border/20 bg-secondary/15 p-5 flex flex-col justify-center">
-                    {[
-                      { label: "Trigger — New CRM lead arrives", color: "text-emerald-500 border-emerald-500/30 bg-emerald-500/10" },
-                      { label: "AI Agent — Qualify & enrich data", color: "text-[#0474C4] border-[#0474C4]/30 bg-[#0474C4]/10" },
-                      { label: "n8n — Update pipeline & CRM", color: "text-amber-500 border-amber-500/30 bg-amber-500/10" },
-                      { label: "Notify — Slack + email report", color: "text-violet-500 border-violet-500/30 bg-violet-500/10" },
-                    ].map((node, i, arr) => (
-                      <div key={node.label} className="flex flex-col items-start">
-                        <div className={`w-full px-4 py-2.5 rounded-lg border font-mono text-[11px] sm:text-xs ${node.color}`}>
-                          {node.label}
-                        </div>
-                        {i < arr.length - 1 && <div className="w-px h-3.5 bg-border/70 ml-6" />}
+            <div className="space-y-20 sm:space-y-28">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                const imageRight = index % 2 === 1;
+                return (
+                  <motion.div
+                    key={service.id}
+                    id={service.id}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center"
+                  >
+                    {/* Image — rounded card with soft glow */}
+                    <div className={`relative flex justify-center ${imageRight ? "md:order-2" : ""}`}>
+                      {/* Soft glow behind image */}
+                      <div className="absolute inset-8 -z-10 rounded-3xl bg-primary/15 blur-3xl" />
+                      <div className="group relative w-full max-w-md aspect-[4/3] rounded-3xl overflow-hidden border border-border/40 shadow-2xl shadow-black/15 ring-1 ring-black/5">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-6 border-t border-border/20 mt-8 flex justify-between items-center relative z-10">
-                  <span className="text-xs text-muted-foreground/60 font-semibold uppercase tracking-wider">n8n · Zapier · Make</span>
-                  <Link href="/contact?service=ai-automation" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#0474C4] text-white hover:bg-[#0474C4]/95 transition-all shadow-md">
-                    Request Info <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 2: AI Solutions (col-span-8 - Wide) */}
-              <motion.div
-                id="ai-solutions"
-                custom={1}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-8 group relative p-8 sm:p-10 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-sm hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  02
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start h-full">
-                  <div className="md:col-span-7 space-y-6 text-left relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Bot className="w-6 h-6" />
                     </div>
-                    <div className="space-y-3">
-                      <h3 className="font-heading font-black text-2xl sm:text-3xl text-foreground tracking-tight">AI &amp; Intelligent Agents</h3>
+
+                    {/* Text */}
+                    <div className={`space-y-5 text-left ${imageRight ? "md:order-1" : ""}`}>
+                      <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-foreground tracking-tight">
+                        {service.title}
+                      </h3>
                       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        Deploy private LLM pipelines, implement fast semantic search vectors, and design automated agent frameworks to scale complex operations.
+                        {service.desc}
                       </p>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-muted-foreground/80">
+                        {service.checklist.map((item) => (
+                          <li key={item} className="flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" /> {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="pt-2">
+                        <Link
+                          href={service.cta}
+                          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/95 transition-all duration-300 shadow-md shadow-primary/15 hover:-translate-y-0.5"
+                        >
+                          Learn More <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
                     </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-muted-foreground/80">
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Private VPC models</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> RAG system pipelines</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Custom Agent scripts</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Semantic search vectors</li>
-                    </ul>
-                  </div>
-
-                  {/* Visual Decorator Image */}
-                  <div className="md:col-span-5 relative w-full h-full min-h-[180px] rounded-2xl border border-border/20 overflow-hidden shadow-inner bg-secondary/15">
-                    <Image
-                      src="/services-ai.png"
-                      alt="AI & Intelligent Agents"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  </div>
-                </div>
-                
-                <div className="pt-6 border-t border-border/20 mt-8 flex justify-between items-center relative z-10">
-                  <span className="text-xs text-muted-foreground/60 font-semibold uppercase tracking-wider">AI Integration SLA</span>
-                  <Link href="/contact?service=ai-solutions" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#0474C4] text-white hover:bg-[#0474C4]/95 transition-all shadow-md">
-                    Request Info <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 2: Web Dev (col-span-4 - Square) */}
-              <motion.div
-                id="web-platforms"
-                custom={2}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-4 group relative p-8 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-md hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between text-left"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  03
-                </div>
-
-                <div className="space-y-6 relative z-10">
-                  {/* Visual Decorator Image */}
-                  <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-border/20 bg-secondary/15">
-                    <Image
-                      src="/services-web.png"
-                      alt="Web Engineering"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Globe className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-heading font-black text-xl text-foreground tracking-tight">Web Engineering</h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Build high-performance web systems using Next.js, fully optimized for Lighthouse metrics and search engine indexes.
-                  </p>
-                </div>
-                <div className="pt-5 border-t border-border/20 mt-5 flex justify-between items-center relative z-10">
-                  <span className="text-xxs font-mono text-[#0474C4]">SEO Optimized</span>
-                  <Link href="/contact?service=web-development" className="text-xs font-bold text-[#0474C4] hover:underline flex items-center gap-1">
-                    Details <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 3: Mobile Apps (col-span-4 - Square) */}
-              <motion.div
-                id="mobile-apps"
-                custom={3}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-4 group relative p-8 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-md hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between text-left"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  04
-                </div>
-
-                <div className="space-y-6 relative z-10">
-                  {/* Visual Decorator Image */}
-                  <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-border/20 bg-secondary/15">
-                    <Image
-                      src="/services-mobile.png"
-                      alt="Mobile Products"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Smartphone className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-heading font-black text-xl text-foreground tracking-tight">Mobile Products</h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Deliver native iOS &amp; Android platforms featuring BLE sensor integrations, offline sync states, and secure local databases.
-                  </p>
-                </div>
-                <div className="pt-5 border-t border-border/20 mt-5 flex justify-between items-center relative z-10">
-                  <span className="text-xxs font-mono text-[#0474C4]">Cross-platform</span>
-                  <Link href="/contact?service=mobile-apps" className="text-xs font-bold text-[#0474C4] hover:underline flex items-center gap-1">
-                    Details <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 4: Backend Services (col-span-8 - Wide) */}
-              <motion.div
-                id="backend-apis"
-                custom={4}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-8 group relative p-8 sm:p-10 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-md hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  05
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start h-full">
-                  <div className="md:col-span-7 space-y-6 text-left relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Server className="w-6 h-6" />
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="font-heading font-black text-2xl sm:text-3xl text-foreground tracking-tight">Backend &amp; High-Speed APIs</h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        Architect microservices and high-throughput APIs using Go and Node.js. Models designed for secure load migrations.
-                      </p>
-                    </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-muted-foreground/80">
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Go &amp; Node microservices</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> GraphQL / REST APIs</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> SQL &amp; NoSQL schemas</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Redis caching tiers</li>
-                    </ul>
-                  </div>
-
-                  {/* Visual Decorator Image */}
-                  <div className="md:col-span-5 relative w-full h-full min-h-[180px] rounded-2xl border border-border/20 overflow-hidden shadow-inner bg-secondary/15">
-                    <Image
-                      src="/services-backend.png"
-                      alt="Backend & APIs"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  </div>
-                </div>
-                
-                <div className="pt-6 border-t border-border/20 mt-8 flex justify-between items-center relative z-10">
-                  <span className="text-xs text-muted-foreground/60 font-semibold uppercase tracking-wider">Fast delivery APIs</span>
-                  <Link href="/contact?service=backend-apis" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#0474C4] text-white hover:bg-[#0474C4]/95 transition-all shadow-md">
-                    Request Info <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 5: Cloud DevOps (col-span-8 - Wide) */}
-              <motion.div
-                id="cloud-devops"
-                custom={5}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-8 group relative p-8 sm:p-10 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-sm hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  06
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start h-full">
-                  <div className="md:col-span-7 space-y-6 text-left relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Cloud className="w-6 h-6" />
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="font-heading font-black text-2xl sm:text-3xl text-foreground tracking-tight">Cloud &amp; DevOps</h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        Automate application deployments using Terraform, manage container clusters with Kubernetes, and verify build health with CI/CD grids.
-                      </p>
-                    </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-muted-foreground/80">
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Terraform (IaC) templates</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Kubernetes clusters</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Automated CI/CD steps</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Datadog build reviews</li>
-                    </ul>
-                  </div>
-
-                  {/* Visual Decorator Image */}
-                  <div className="md:col-span-5 relative w-full h-full min-h-[180px] rounded-2xl border border-border/20 overflow-hidden shadow-inner bg-secondary/15">
-                    <Image
-                      src="/services-cloud.png"
-                      alt="Cloud & DevOps"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  </div>
-                </div>
-                
-                <div className="pt-6 border-t border-border/20 mt-8 flex justify-between items-center relative z-10">
-                  <span className="text-xs text-muted-foreground/60 font-semibold uppercase tracking-wider">AWS / GCP environments</span>
-                  <Link href="/contact?service=cloud-devops" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#0474C4] text-white hover:bg-[#0474C4]/95 transition-all shadow-md">
-                    Request Info <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 6: UI UX Design (col-span-4 - Square) */}
-              <motion.div
-                id="ui-ux-design"
-                custom={6}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-4 group relative p-8 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-md hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between text-left"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  07
-                </div>
-
-                <div className="space-y-6 relative z-10">
-                  {/* Visual Decorator Image */}
-                  <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-border/20 bg-secondary/15">
-                    <Image
-                      src="/services-design.png"
-                      alt="Product UI/UX"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Palette className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-heading font-black text-xl text-foreground tracking-tight">Product UI/UX</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Design pixel-perfect layout interfaces in Figma matching WCAG 2.1 AA web accessibility checks.
-                  </p>
-                </div>
-                <div className="pt-5 border-t border-border/20 mt-5 flex justify-between items-center relative z-10">
-                  <span className="text-xxs font-mono text-[#0474C4]">Accessible systems</span>
-                  <Link href="/contact?service=ui-ux-design" className="text-xs font-bold text-[#0474C4] hover:underline flex items-center gap-1">
-                    Details <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 7: QA Testing (col-span-4 - Square) */}
-              <motion.div
-                id="qa-automation"
-                custom={7}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-4 group relative p-8 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-md hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between text-left"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  08
-                </div>
-
-                <div className="space-y-6 relative z-10">
-                  {/* Visual Decorator Image */}
-                  <div className="relative w-full h-36 rounded-2xl overflow-hidden border border-border/20 bg-secondary/15">
-                    <Image
-                      src="/services-testing.png"
-                      alt="QA Automation"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-heading font-black text-xl text-foreground tracking-tight">QA Automation</h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Build end-to-end automated test scripts using Playwright and Cypress to lock in core systems stability.
-                  </p>
-                </div>
-                <div className="pt-5 border-t border-border/20 mt-5 flex justify-between items-center relative z-10">
-                  <span className="text-xxs font-mono text-[#0474C4]">End-to-End verified</span>
-                  <Link href="/contact?service=qa-testing" className="text-xs font-bold text-[#0474C4] hover:underline flex items-center gap-1">
-                    Details <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Card 8: SLA Support (col-span-8 - Wide) */}
-              <motion.div
-                id="sla-support"
-                custom={8}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="lg:col-span-8 group relative p-8 sm:p-10 rounded-3xl border border-border/30 bg-card/65 backdrop-blur-md hover:border-[#0474C4]/40 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden flex flex-col justify-between"
-              >
-                {/* Large Background Offset Number */}
-                <div className="absolute -top-3 -right-3 text-8xl font-black text-foreground/[0.02] group-hover:text-[#0474C4]/5 transition-colors duration-300 pointer-events-none select-none font-mono">
-                  09
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start h-full">
-                  <div className="md:col-span-7 space-y-6 text-left relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4] group-hover:scale-105 transition-all duration-300">
-                      <Wrench className="w-6 h-6" />
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="font-heading font-black text-2xl sm:text-3xl text-foreground tracking-tight">SLA Support &amp; Maintenance</h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        Secure query caching, framework updates, database indexing reviews, and guaranteed code migrations.
-                      </p>
-                    </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-muted-foreground/80">
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Guaranteed emergency SLAs</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Active security audits</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Database query scaling</li>
-                      <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#0474C4]" /> Frame upgrades</li>
-                    </ul>
-                  </div>
-
-                  {/* Visual Decorator Image */}
-                  <div className="md:col-span-5 relative w-full h-full min-h-[180px] rounded-2xl border border-border/20 overflow-hidden shadow-inner bg-secondary/15">
-                    <Image
-                      src="/services-support.png"
-                      alt="SLA Support"
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  </div>
-                </div>
-                
-                <div className="pt-6 border-t border-border/20 mt-8 flex justify-between items-center relative z-10">
-                  <span className="text-xs text-muted-foreground/60 font-semibold uppercase tracking-wider">Ongoing support networks</span>
-                  <Link href="/contact?service=maintenance" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-[#0474C4] text-white hover:bg-[#0474C4]/95 transition-all shadow-md">
-                    Request Info <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* ── Workflow Process (Typographic Redesign) ── */}
-        <section id="workflows" className="py-28 px-4 border-t border-border/20 bg-background relative overflow-hidden">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              
-              {/* Left Side: Header */}
-              <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit space-y-5 text-left">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-[#0474C4] bg-[#0474C4]/10 border border-[#0474C4]/20">
-                  Workflows
-                </span>
-                <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-foreground tracking-tight leading-tight">
-                  How We <br />
-                  <span className="bg-gradient-to-r from-[#0474C4] to-[#5379AE] bg-clip-text text-transparent">
-                    Collaborate
-                  </span>
-                </h2>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-sm">
-                  Our engineering workflow is structured to guarantee velocity, security, and transparent communications at every milestone.
-                </p>
-              </div>
+        {/* ── Why Choose Us ── */}
+        <section className="py-20 sm:py-28 px-4 border-t border-border/20">
+          <div className="max-w-6xl mx-auto">
+            <SectionHeader
+              badge="Why Choose Us"
+              title="Built Around Your Success"
+              subtitle="Every engagement includes the guarantees and working practices that make delivery predictable and transparent."
+            />
 
-              {/* Right Side: Minimalist Typographic List */}
-              <div className="lg:col-span-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-12">
-                  {[
-                    { step: "01", name: "Technical Discovery", desc: "We audit your systems, outline data structures, and detail interface layouts." },
-                    { step: "02", name: "System Architecture", desc: "We design databases, define API contracts, and draft technical paths." },
-                    { step: "03", name: "Sprints & Delivery", desc: "We build features in modular sprints, providing weekly demo builds." },
-                    { step: "04", name: "Validation & Launch", desc: "We run Playwright suites, complete light sweeps, and deploy to CDN Edge." },
-                  ].map((p, i) => (
-                    <motion.div
-                      key={p.step}
-                      custom={i}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={fadeUp}
-                      className="group flex flex-col items-start border-t border-border/50 pt-8 relative overflow-hidden text-left"
-                    >
-                      {/* Top glowing line indicator on hover */}
-                      <div className="absolute top-0 left-0 h-[2px] bg-[#0474C4] w-0 group-hover:w-full transition-all duration-300" />
-                      
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="font-mono text-sm font-bold text-[#0474C4]">
-                          {p.step}.
-                        </span>
-                        <h3 className="font-heading font-bold text-lg text-foreground tracking-tight font-heading">
-                          {p.name}
-                        </h3>
-                      </div>
-                      <p className="text-sm sm:text-base text-muted-foreground/90 leading-relaxed">
-                        {p.desc}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {whyChooseUs.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    className="glass-card group p-5 rounded-2xl border border-border/40 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 text-left"
+                  >
+                    <div className={`w-11 h-11 rounded-xl border flex items-center justify-center group-hover:scale-105 transition-transform duration-300 ${item.tint}`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-sm font-semibold text-foreground leading-snug">
+                      {item.title}
+                    </span>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
+
+        {/* ── Engagement Models ── */}
+        <section id="engagement-models" className="py-20 sm:py-28 px-4 border-t border-border/20 bg-secondary/5">
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              badge="Engagement Models"
+              title="Flexible Ways to Work Together"
+              subtitle="Each model is designed to ensure transparency, efficiency, and smooth communication throughout the development process."
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {engagementModels.map((model, i) => {
+                const Icon = model.icon;
+                return (
+                  <motion.div
+                    key={model.name}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    className="glass-card p-6.5 rounded-2xl border border-border/40 flex flex-col justify-between text-left"
+                  >
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#0474C4]/15 border border-[#0474C4]/30 flex items-center justify-center text-[#0474C4]">
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-heading font-bold text-lg text-foreground">{model.name}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{model.desc}</p>
+                    </div>
+                    <div className="pt-5 border-t border-border/30 mt-5">
+                      <span className="text-xs text-muted-foreground/80 leading-relaxed">
+                        <span className="font-semibold text-primary">Best for:</span> {model.bestFor}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
