@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { Shield, Lightbulb, Target, Rocket, Users, Globe, Award, TrendingUp } from "lucide-react";
+import { Award, Rocket, Globe, TrendingUp, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -16,86 +17,60 @@ const fadeUp: Variants = {
 };
 
 const stats = [
-  { value: "1,000+", label: "Projects Delivered", icon: Rocket },
-  { value: "99%", label: "Client Satisfaction", icon: Award },
-  { value: "50+", label: "Global Partners", icon: Globe },
+  { value: "10+", label: "Years with Japanese Enterprises", icon: Award },
+  { value: "2026", label: "Kodenri Founded", icon: Rocket },
+  { value: "100+", label: "Projects Delivered", icon: Globe },
   { value: "24/7", label: "Support Available", icon: TrendingUp },
 ];
 
+// Values rooted in the Japanese engineering culture the team grew up in
 const values = [
   {
-    icon: Shield,
-    title: "Uncompromising Integrity",
-    desc: "We prioritize security, transparency, and data privacy in all integrations, ensuring your intellectual property remains yours.",
-    color: "bg-blue-500/10 border-blue-500/20 text-blue-400",
+    jp: "改善",
+    name: "Kaizen",
+    title: "Continuous Improvement",
+    desc: "Every sprint, every release, every process gets a little better. We refine relentlessly — small, disciplined improvements compound into world-class software.",
   },
   {
-    icon: Lightbulb,
-    title: "Continuous Innovation",
-    desc: "We stay at the vanguard of technologies, integrating state-of-the-art AI advancements and optimizing architecture efficiency.",
-    color: "bg-[#5379AE]/10 border-[#5379AE]/20 text-[#A8C4EC]",
+    jp: "ものづくり",
+    name: "Monozukuri",
+    title: "Craftsmanship in Engineering",
+    desc: "Software is a craft. We take deep pride in clean architecture, careful naming, and details users never see but always feel.",
   },
   {
-    icon: Target,
-    title: "Results-Driven Delivery",
-    desc: "We design products that achieve verifiable business outcomes, whether cutting processing timelines or scaling user throughput.",
-    color: "bg-[#0474C4]/10 border-[#0474C4]/20 text-[#A8C4EC]",
+    jp: "おもてなし",
+    name: "Omotenashi",
+    title: "Anticipating Client Needs",
+    desc: "True service means solving problems before they are spoken. We listen closely, communicate transparently, and deliver more than the spec asks.",
   },
   {
-    icon: Users,
-    title: "Client-First Partnership",
-    desc: "We treat every client engagement as a long-term partnership, not a transaction — deeply invested in your success at every stage.",
-    color: "bg-[#06457F]/10 border-[#06457F]/20 text-[#A8C4EC]",
-  },
-];
-
-const milestones = [
-  {
-    year: "2023",
-    title: "Company Founded",
-    desc: "Kodenri was established in Dhaka, Bangladesh, with a mission to deliver world-class enterprise software development solutions.",
-  },
-  {
-    year: "2024",
-    title: "Deep-Tech Expansion",
-    desc: "Successfully integrated advanced AI/LLM models for leading healthcare and legal operations, shifting focus towards intelligent applications.",
-  },
-  {
-    year: "2025",
-    title: "Global Partner Scaling",
-    desc: "Reached key scaling markers, delivering microservices cloud migrations and native mobile products for partners in the US, EU, and Asia.",
-  },
-  {
-    year: "2026",
-    title: "Next-Gen AI Systems",
-    desc: "Established a dedicated AI systems wing, designing private VPC document agent solutions and cutting-edge Web architectures.",
+    jp: "信頼",
+    name: "Shinrai",
+    title: "Trust & Reliability",
+    desc: "Deadlines are honored. Data is protected. Promises are kept. Long-term trust — not one-off transactions — is how we measure success.",
   },
 ];
 
-const team = [
+const journey = [
   {
-    name: "Elius Ahmed",
-    role: "Founder & Lead Architect",
-    bio: "Ex-enterprise systems designer with 10+ years architecting web architectures and cloud-native database networks.",
-    img: "/team-elius.png",
-    initials: "EA",
-    color: "from-[#0474C4]/30 to-[#06457F]/30",
+    label: "The Roots",
+    title: "Learning the Japanese Way",
+    desc: "Our engineers began their careers building software with and for Japanese companies — absorbing an engineering culture defined by precision, discipline, and uncompromising quality.",
   },
   {
-    name: "Dr. Aris Thorne",
-    role: "Head of AI Research",
-    bio: "PhD in Machine Learning. Specialist in semantic search, private RAG pipeline design, and neural networks.",
-    img: "/team-aris.png",
-    initials: "AT",
-    color: "from-[#5379AE]/30 to-[#2C444C]/30",
+    label: "The Experience",
+    title: "A Decade of Enterprise Delivery",
+    desc: "Over more than ten years, the team delivered mission-critical systems for Japanese enterprises — web platforms, mobile products, backend infrastructure, and automation — gathering deep, hard-won expertise.",
   },
   {
-    name: "Marcus Vance",
-    role: "Principal Cloud Engineer",
-    bio: "Kubernetes expert and IaC designer, specializing in low-downtime database scaling and automated multi-cloud setups.",
-    img: "/team-marcus.png",
-    initials: "MV",
-    color: "from-[#06457F]/30 to-[#262B40]/30",
+    label: "2026",
+    title: "Kodenri Is Born",
+    desc: "In 2026, the team united that experience under one name and founded Kodenri — bringing Japanese engineering standards to clients around the world.",
+  },
+  {
+    label: "Today",
+    title: "Building What the Future Needs",
+    desc: "Today Kodenri designs AI systems, web and mobile platforms, and cloud infrastructure with the same care we learned in Japan — for partners everywhere.",
   },
 ];
 
@@ -106,7 +81,7 @@ export default function About() {
 
       <main className="flex-grow">
 
-        {/* ── Hero Banner with Side-by-Side Story & Stats ── */}
+        {/* ── Hero Banner with Story & Stats ── */}
         <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-background">
           {/* Background image */}
           <div className="absolute inset-0 -z-10 bg-background">
@@ -124,7 +99,7 @@ export default function About() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-40 w-full relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              
+
               {/* Left Side: Our Story */}
               <div className="lg:col-span-7 text-left">
                 <motion.div
@@ -137,13 +112,13 @@ export default function About() {
                     Our Story
                   </span>
                   <h1 className="font-heading font-black text-4xl sm:text-5xl md:text-6xl text-foreground tracking-tight leading-tight">
-                    Empowering Enterprises{" "}
+                    Forged in Japan,{" "}
                     <span className="bg-gradient-to-r from-primary via-accent to-[#5379AE] bg-clip-text text-transparent drop-shadow-sm">
-                      Through Tech
+                      Built for the World
                     </span>
                   </h1>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                    Kodenri is a premium software engineering agency partnering with visionary businesses to build secure, scalable, and intelligent applications that drive real-world results.
+                    For over a decade, the Kodenri team engineered software alongside Japanese companies — absorbing a culture of precision, craftsmanship, and reliability. In 2026, we brought that experience together and founded Kodenri.
                   </p>
                 </motion.div>
               </div>
@@ -176,7 +151,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── Mission & Story with Image ── */}
+        {/* ── The Kodenri Story ── */}
         <section className="py-24 px-4">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Image Panel */}
@@ -190,7 +165,7 @@ export default function About() {
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
                 <Image
                   src="/about-mission.png"
-                  alt="Our mission — engineering excellence"
+                  alt="Kodenri — engineering excellence"
                   fill
                   className="object-cover"
                 />
@@ -198,8 +173,8 @@ export default function About() {
               </div>
               {/* Floating badge */}
               <div className="absolute -bottom-5 -right-5 bg-card border border-border/40 shadow-xl rounded-2xl px-5 py-4 backdrop-blur-sm">
-                <div className="text-2xl font-black text-primary">2023</div>
-                <div className="text-xs text-muted-foreground font-medium">Founded in Dhaka, BD</div>
+                <div className="text-2xl font-black text-primary">2026</div>
+                <div className="text-xs text-muted-foreground font-medium">Kodenri Founded</div>
               </div>
             </motion.div>
 
@@ -212,68 +187,59 @@ export default function About() {
               className="space-y-8"
             >
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">Our Mission</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">Why Kodenri Exists</span>
                 <h2 className="font-heading font-black text-3xl sm:text-4xl text-foreground leading-tight mb-4">
-                  Engineering Intelligence at Scale
+                  Japanese Engineering Discipline, Delivered Worldwide
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  To engineer secure, intelligent, and highly scalable software solutions that accelerate digital transformation, helping organizations achieve market leadership through premium technology integrations.
+                  Working inside Japan&apos;s demanding enterprise environment for years taught us something rare: quality is not a feature — it is a habit. Rigorous code review, meticulous testing, punctual delivery, and total respect for the client&apos;s trust were simply how work was done.
                 </p>
               </div>
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">Our Vision</span>
                 <p className="text-muted-foreground leading-relaxed">
-                  To be recognized globally as a premium technology partner, celebrated for our commitment to data integrity, design excellence, and innovative software architecture that helps businesses scale beyond limits.
+                  In 2026 we founded Kodenri to bring that standard to businesses everywhere. Every project we take on — AI automation, web platforms, mobile apps, or cloud infrastructure — is built with the same discipline our team practiced with Japanese partners for over a decade.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <div className="flex-1 p-5 rounded-2xl border border-border/40 bg-card/60 backdrop-blur-sm">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-3">
-                    <Globe className="w-4 h-4" />
-                  </div>
-                  <div className="font-bold text-foreground text-sm mb-1">Global Reach</div>
-                  <div className="text-xs text-muted-foreground">Clients across US, EU & Asia</div>
-                </div>
-                <div className="flex-1 p-5 rounded-2xl border border-border/40 bg-card/60 backdrop-blur-sm">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-3">
-                    <Shield className="w-4 h-4" />
-                  </div>
-                  <div className="font-bold text-foreground text-sm mb-1">Enterprise-Grade</div>
-                  <div className="text-xs text-muted-foreground">HIPAA & PCI-DSS compliant</div>
-                </div>
+              <div className="pt-2">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/95 transition-all duration-300 shadow-md shadow-primary/15 hover:-translate-y-0.5"
+                >
+                  Work With Us <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ── Core Values (Typographic Redesign) ── */}
-        <section className="py-28 px-4 border-t border-border/20 bg-background relative overflow-hidden">
+        {/* ── Values — Japanese Principles ── */}
+        <section className="py-28 px-4 border-t border-border/20 bg-secondary/5 relative overflow-hidden">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              
+
               {/* Left Side: Header */}
               <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit space-y-5 text-left">
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 border border-primary/20">
-                  Core Values
+                  Our Values
                 </span>
                 <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-foreground tracking-tight leading-tight">
-                  What Guides <br />
+                  Principles We <br />
                   <span className="bg-gradient-to-r from-[#0474C4] to-[#5379AE] bg-clip-text text-transparent">
-                    Our Code
+                    Brought Home
                   </span>
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-sm">
-                  Our principles shape every line of code we write and every client relationship we build.
+                  Four principles from Japanese engineering culture shape every line of code we write and every relationship we build.
                 </p>
               </div>
 
-              {/* Right Side: Minimalist Typographic List */}
+              {/* Right Side: Values List */}
               <div className="lg:col-span-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-12">
                   {values.map((v, i) => (
                     <motion.div
-                      key={v.title}
+                      key={v.name}
                       custom={i}
                       initial="hidden"
                       whileInView="visible"
@@ -283,15 +249,14 @@ export default function About() {
                     >
                       {/* Top glowing line indicator on hover */}
                       <div className="absolute top-0 left-0 h-[2px] bg-[#0474C4] w-0 group-hover:w-full transition-all duration-300" />
-                      
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="font-mono text-sm font-bold text-primary">
-                          0{i + 1}.
-                        </span>
-                        <h3 className="font-heading font-bold text-lg text-foreground tracking-tight">
-                          {v.title}
-                        </h3>
+
+                      <div className="flex items-baseline gap-3 mb-1">
+                        <span className="font-heading text-2xl font-black text-primary/80 select-none">{v.jp}</span>
+                        <span className="font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest">{v.name}</span>
                       </div>
+                      <h3 className="font-heading font-bold text-lg text-foreground tracking-tight mb-3">
+                        {v.title}
+                      </h3>
                       <p className="text-sm sm:text-base text-muted-foreground/90 leading-relaxed">
                         {v.desc}
                       </p>
@@ -304,7 +269,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── Timeline ── */}
+        {/* ── Journey Timeline ── */}
         <section className="py-24 px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -314,17 +279,17 @@ export default function About() {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">Timeline</span>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-foreground mb-4">Our Journey So Far</h2>
+              <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">Journey</span>
+              <h2 className="font-heading font-black text-3xl sm:text-4xl text-foreground mb-4">From Japan to Kodenri</h2>
               <p className="text-muted-foreground max-w-xl mx-auto">
-                From a focused startup to a globally recognized engineering agency.
+                A decade of enterprise experience, distilled into one company.
               </p>
             </motion.div>
 
             <div className="relative pl-8 sm:pl-16 border-l-2 border-primary/20 space-y-12">
-              {milestones.map((m, i) => (
+              {journey.map((m, i) => (
                 <motion.div
-                  key={m.year}
+                  key={m.label}
                   custom={i}
                   initial="hidden"
                   whileInView="visible"
@@ -337,7 +302,7 @@ export default function About() {
 
                   <div className="p-6 rounded-2xl border border-border/40 bg-card/60 backdrop-blur-sm hover:border-primary/30 transition-colors duration-300">
                     <span className="inline-block text-xs font-extrabold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full mb-3">
-                      {m.year}
+                      {m.label}
                     </span>
                     <h3 className="font-heading font-bold text-lg text-foreground mb-2">{m.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{m.desc}</p>
@@ -348,58 +313,24 @@ export default function About() {
           </div>
         </section>
 
-        {/* ── Team ── */}
-        <section className="py-24 px-4 bg-secondary/10 border-t border-border/20">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">Team</span>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl text-foreground mb-4">Meet the Architects</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Highly specialized engineers delivering world-class enterprise software solutions.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {team.map((member, i) => (
-                <motion.div
-                  key={member.name}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  className="group relative rounded-3xl overflow-hidden border border-border/40 bg-card/80 backdrop-blur-sm hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 shadow-lg"
-                >
-                  {/* Avatar / image area */}
-                  <div className={`relative aspect-[4/3] bg-gradient-to-br ${member.color} overflow-hidden`}>
-                    <Image
-                      src={member.img}
-                      alt={member.name}
-                      fill
-                      className="object-cover object-top"
-                      onError={() => {}} // gracefully fallback
-                    />
-                    {/* Fallback initials shown under image */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-5xl font-black text-foreground/20 select-none">{member.initials}</span>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-6">
-                    <h3 className="font-heading font-bold text-lg text-foreground">{member.name}</h3>
-                    <p className="text-xs text-primary font-semibold tracking-wider uppercase mt-1 mb-3">{member.role}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
-                  </div>
-                </motion.div>
-              ))}
+        {/* ── Closing CTA ── */}
+        <section className="py-20 sm:py-24 px-4 border-t border-border/20 text-center relative overflow-hidden bg-secondary/5">
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent -z-10" />
+          <div className="max-w-3xl mx-auto space-y-6">
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-foreground tracking-tight leading-tight">
+              Experience the Kodenri Standard
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              A decade of Japanese enterprise discipline, now working for your business.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/95 transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              >
+                <span>Start a Conversation</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </div>
         </section>
