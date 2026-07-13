@@ -64,76 +64,194 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 via-transparent to-[#06457F]/30" />
           </div>
 
-          {/* ── Main Content ── */}
-          <div className="max-w-5xl mx-auto w-full text-center pt-20 pb-12">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="space-y-8"
-            >
-              {/* Badge */}
-              <motion.div variants={itemVariants} className="flex justify-center">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-white bg-[#0474C4]/30 border border-[#A8C4EC]/30 backdrop-blur-sm">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A8C4EC] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#A8C4EC]" />
-                  </span>
-                  Enterprise AI & Cloud Engineering
-                </div>
-              </motion.div>
+          {/* ── Main Content: Split Layout ── */}
+          <div className="max-w-7xl mx-auto w-full pt-28 pb-16 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-10 items-center">
 
-              {/* Headline */}
-              <motion.h1
-                variants={itemVariants}
-                className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05]"
-              >
-                <span className="text-white drop-shadow-lg">Build What</span>
-                <br />
-                <span className="bg-gradient-to-r from-[#A8C4EC] via-[#5379AE] to-[#0474C4] bg-clip-text text-transparent drop-shadow-lg">
-                  the Future Needs
-                </span>
-              </motion.h1>
-
-              {/* Subheadline */}
-              <motion.p
-                variants={itemVariants}
-                className="text-base sm:text-lg md:text-xl text-white/75 max-w-2xl mx-auto leading-relaxed"
-              >
-                Kodenri architects high-performance AI systems, cloud-native platforms, and enterprise software that scales to millions — built by engineers who care.
-              </motion.p>
-
-              {/* CTA Buttons */}
-              <motion.div
-                variants={itemVariants}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
-              >
-                <Link
-                  id="hero-primary-cta"
-                  href="/contact"
-                  className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5"
+              {/* Left: Copy */}
+              <div className="lg:col-span-6 text-center lg:text-left">
+                <motion.div
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="space-y-7"
                 >
-                  Start Your Project
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </Link>
-              </motion.div>
+                  {/* Badge */}
+                  <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-white bg-[#0474C4]/30 border border-[#A8C4EC]/30 backdrop-blur-sm">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A8C4EC] opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#A8C4EC]" />
+                      </span>
+                      Enterprise AI & Cloud Engineering
+                    </div>
+                  </motion.div>
 
-              {/* Trust bar */}
-              <motion.div
-                variants={itemVariants}
-                className="flex flex-wrap items-center justify-center gap-2 pt-4 text-xs text-white/40"
-              >
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
-                <span>No lock-in contracts</span>
-                <span className="mx-2 text-border">·</span>
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
-                <span>Free discovery call</span>
-                <span className="mx-2 text-border">·</span>
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
-                <span>100% client data privacy</span>
-              </motion.div>
+                  {/* Headline */}
+                  <motion.h1
+                    variants={itemVariants}
+                    className="font-heading font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05]"
+                  >
+                    <span className="text-white drop-shadow-lg">Build What</span>
+                    <br />
+                    <span className="bg-gradient-to-r from-[#A8C4EC] via-[#5379AE] to-[#0474C4] bg-clip-text text-transparent drop-shadow-lg">
+                      the Future Needs
+                    </span>
+                  </motion.h1>
 
-            </motion.div>
+                  {/* Subheadline */}
+                  <motion.p
+                    variants={itemVariants}
+                    className="text-base sm:text-lg text-white/75 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+                  >
+                    Kodenri architects high-performance AI systems, cloud-native platforms, and enterprise software that scales to millions — built by engineers who care.
+                  </motion.p>
+
+                  {/* CTA Buttons */}
+                  <motion.div
+                    variants={itemVariants}
+                    className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
+                  >
+                    <Link
+                      id="hero-primary-cta"
+                      href="/contact"
+                      className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5"
+                    >
+                      Start Your Project
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                    </Link>
+                    <Link
+                      href="/services"
+                      className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-white border border-white/25 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300"
+                    >
+                      Explore Services
+                    </Link>
+                  </motion.div>
+
+                  {/* Trust bar */}
+                  <motion.div
+                    variants={itemVariants}
+                    className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-3 text-xs text-white/40"
+                  >
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>No lock-in contracts</span>
+                    <span className="mx-2 text-border">·</span>
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Free discovery call</span>
+                    <span className="mx-2 text-border">·</span>
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>100% client data privacy</span>
+                  </motion.div>
+                </motion.div>
+              </div>
+
+              {/* Right: Animated Deploy Console */}
+              <div className="lg:col-span-6 relative">
+                <motion.div
+                  initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
+                  className="relative max-w-lg mx-auto"
+                >
+                  {/* Glow behind console */}
+                  <div className="absolute -inset-10 bg-primary/20 blur-[110px] rounded-full -z-10" />
+
+                  {/* Code window */}
+                  <div className="rounded-2xl border border-white/15 bg-[#0b1220]/85 backdrop-blur-xl shadow-2xl shadow-black/50 overflow-hidden">
+                    {/* Title bar */}
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-white/5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                      </div>
+                      <span className="font-mono text-[10px] text-white/50">kodenri.deploy.ts</span>
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-[#A8C4EC] bg-[#0474C4]/20 border border-[#A8C4EC]/20 px-2 py-0.5 rounded">
+                        TypeScript
+                      </span>
+                    </div>
+
+                    {/* Code body */}
+                    <div className="p-5 sm:p-6 font-mono text-[11px] sm:text-[12.5px] leading-[1.9] text-left">
+                      <div className="text-white/35">{"// build what the future needs"}</div>
+                      <div>
+                        <span className="text-[#A8C4EC]">const</span>
+                        <span className="text-white/85"> project = </span>
+                        <span className="text-[#A8C4EC]">await</span>
+                        <span className="text-sky-300"> kodenri</span>
+                        <span className="text-white/85">.build({"{"}</span>
+                      </div>
+                      <div className="pl-5">
+                        <span className="text-white/85">stack: [</span>
+                        <span className="text-emerald-300">&quot;Next.js&quot;</span>
+                        <span className="text-white/85">, </span>
+                        <span className="text-emerald-300">&quot;AI&quot;</span>
+                        <span className="text-white/85">, </span>
+                        <span className="text-emerald-300">&quot;AWS&quot;</span>
+                        <span className="text-white/85">],</span>
+                      </div>
+                      <div className="pl-5">
+                        <span className="text-white/85">quality: </span>
+                        <span className="text-emerald-300">&quot;enterprise&quot;</span>
+                        <span className="text-white/85">,</span>
+                      </div>
+                      <div className="text-white/85">{"});"}</div>
+                      <div className="h-3" />
+                      <div>
+                        <span className="text-[#A8C4EC]">await</span>
+                        <span className="text-white/85"> project.deploy({"{ "}</span>
+                        <span className="text-white/85">region: </span>
+                        <span className="text-emerald-300">&quot;global&quot;</span>
+                        <span className="text-white/85">{" });"}</span>
+                        <motion.span
+                          animate={{ opacity: [1, 0, 1] }}
+                          transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
+                          className="inline-block w-[7px] h-[14px] bg-[#A8C4EC] ml-1 align-middle"
+                        />
+                      </div>
+                      <div className="h-3" />
+                      <div className="text-emerald-400">✓ Live in 1.2s — zero downtime</div>
+                    </div>
+                  </div>
+
+                  {/* Floating: deployment status */}
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-7 -right-3 sm:-right-8 rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl px-4 py-3 shadow-xl flex items-center gap-3"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xs font-bold text-white">Deployment successful</div>
+                      <div className="text-[10px] text-white/55 font-mono">main → production · 12s</div>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating: uptime stat */}
+                  <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -bottom-8 -left-3 sm:-left-8 rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl px-5 py-3.5 shadow-xl text-left"
+                  >
+                    <div className="text-xl font-black text-white leading-none">24/7</div>
+                    <div className="text-[10px] uppercase tracking-wider text-white/55 font-semibold mt-1.5">Support</div>
+                  </motion.div>
+
+                  {/* Floating: AI engine chip */}
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute top-1/2 -right-4 sm:-right-10 hidden sm:flex items-center gap-2 rounded-full border border-[#A8C4EC]/25 bg-[#0474C4]/25 backdrop-blur-xl px-4 py-2 shadow-xl"
+                  >
+                    <Bot className="w-3.5 h-3.5 text-[#A8C4EC]" />
+                    <span className="text-[10px] font-bold text-white whitespace-nowrap">AI Engine Active</span>
+                  </motion.div>
+                </motion.div>
+              </div>
+
+            </div>
           </div>
 
           {/* ── Bottom Fade ── */}
