@@ -17,6 +17,23 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SectionHeader } from "@/components/section-header";
 
+// Slugs must match the ?service= deep links on the services page
+const serviceOptions: { value: string; label: string }[] = [
+  { value: "general", label: "General Query / Quote" },
+  { value: "ai-automation", label: "AI Automation" },
+  { value: "ai-solutions", label: "AI Solutions" },
+  { value: "web-platforms", label: "Web Platforms" },
+  { value: "mobile-apps", label: "Mobile Apps" },
+  { value: "backend-apis", label: "Backend & API Development" },
+  { value: "cloud-devops", label: "Cloud & DevOps" },
+  { value: "ui-ux-design", label: "UI/UX Design" },
+  { value: "qa-testing", label: "QA & Software Testing" },
+  { value: "maintenance", label: "System Maintenance & Support" },
+];
+
+const serviceLabel = (value: string) =>
+  serviceOptions.find((o) => o.value === value)?.label ?? "General Query / Quote";
+
 // Contact form component that uses useSearchParams
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -29,9 +46,9 @@ function ContactFormContent() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  // Set the service from search params if present
+  // Set the service from search params if present (ignore unknown slugs)
   useEffect(() => {
-    if (serviceParam) {
+    if (serviceOptions.some((o) => o.value === serviceParam)) {
       setService(serviceParam);
     }
   }, [serviceParam]);
@@ -53,6 +70,14 @@ function ContactFormContent() {
     e.preventDefault();
     if (!validate()) return;
 
+    const subject = encodeURIComponent(
+      `[${serviceLabel(service)}] Inquiry from ${name}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nService: ${serviceLabel(service)}\n\n${message}`
+    );
+    window.location.href = `mailto:sharif.rahman@gmail.com?subject=${subject}&body=${body}`;
+
     setSubmitted(true);
     // Reset after some time
     setTimeout(() => {
@@ -62,7 +87,7 @@ function ContactFormContent() {
       setMessage("");
       setErrors({});
       setSubmitted(false);
-    }, 3000);
+    }, 5000);
   };
 
   return (
@@ -79,10 +104,13 @@ function ContactFormContent() {
               <CheckCircle className="w-8 h-8" />
             </div>
             <h3 className="font-heading font-bold text-2xl text-foreground">
-              Message Sent!
+              Opening Your Email App...
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
-              Thank you for contacting Kodenri. A technology advisor will audit your details and respond within 24 business hours.
+              Your message has been prepared — just hit send in your email app. If nothing opened, email us directly at{" "}
+              <a href="mailto:sharif.rahman@gmail.com" className="text-primary font-semibold hover:underline">
+                sharif.rahman@gmail.com
+              </a>.
             </p>
           </motion.div>
         ) : (
@@ -136,12 +164,11 @@ function ContactFormContent() {
                 onChange={(e) => setService(e.target.value)}
                 className="w-full text-sm px-4 py-2.5 rounded-lg bg-secondary/20 border border-border/60 focus:border-primary/60 focus:outline-none transition-colors text-foreground"
               >
-                <option value="general" className="bg-background text-foreground">General Query / Quote</option>
-                <option value="ai-solutions" className="bg-background text-foreground">AI Solutions</option>
-                <option value="web-development" className="bg-background text-foreground">Web Application Engineering</option>
-                <option value="mobile-apps" className="bg-background text-foreground">Native Mobile Apps</option>
-                <option value="cloud-devops" className="bg-background text-foreground">Cloud & DevOps</option>
-                <option value="ui-ux-design" className="bg-background text-foreground">UI/UX Design</option>
+                {serviceOptions.map((o) => (
+                  <option key={o.value} value={o.value} className="bg-background text-foreground">
+                    {o.label}
+                  </option>
+                ))}
               </select>
             </div>
 
