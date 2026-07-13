@@ -227,8 +227,8 @@ export default function Contact() {
                     <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-semibold text-foreground">Business Inquiries</h4>
-                      <a href="mailto:contact@kodenri.com" className="text-xs sm:text-sm mt-0.5 hover:text-primary transition-colors">
-                        contact@kodenri.com
+                      <a href="mailto:sharif.rahman@gmail.com" className="text-xs sm:text-sm mt-0.5 hover:text-primary transition-colors">
+                        sharif.rahman@gmail.com
                       </a>
                     </div>
                   </div>
@@ -237,8 +237,8 @@ export default function Contact() {
                     <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-semibold text-foreground">Phone Support</h4>
-                      <a href="tel:+88029999999" className="text-xs sm:text-sm mt-0.5 hover:text-primary transition-colors">
-                        +880 (2) 999-9999
+                      <a href="tel:+8801996338844" className="text-xs sm:text-sm mt-0.5 hover:text-primary transition-colors">
+                        +880 1996-338844
                       </a>
                     </div>
                   </div>
@@ -253,26 +253,16 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Geographic HQ representation */}
-              <div className="glass-card p-6.5 rounded-3xl border border-border/40 h-64 flex flex-col justify-between relative overflow-hidden bg-gradient-to-tr from-primary/5 to-transparent">
-                {/* Simulated Geopoint Graphic */}
-                <div className="absolute inset-0 bg-[radial-gradient(rgba(124,58,237,0.05)_1px,transparent_1px)] bg-[size:16px_16px] -z-10" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border border-primary/20 bg-primary/5 animate-pulse -z-10" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center -z-10">
-                  <div className="w-4 h-4 rounded-full bg-primary animate-ping" />
-                </div>
-
-                <div className="space-y-1.5">
-                  <h4 className="font-heading font-bold text-base text-foreground">
-                    Dhaka Geopoint
-                  </h4>
-                  <p className="text-xs text-muted-foreground">
-                    Main engineering and systems administration core.
-                  </p>
-                </div>
-                <div className="text-xxs text-primary font-bold uppercase tracking-wider">
-                  Operational Core Active
-                </div>
+              {/* Headquarters map */}
+              <div className="glass-card rounded-3xl border border-border/40 overflow-hidden">
+                <iframe
+                  title="Kodenri Headquarters — Mirpur Road, Dhaka, Bangladesh"
+                  src="https://www.google.com/maps?q=Mirpur+Road,+Dhaka,+Bangladesh&output=embed"
+                  className="w-full h-64 border-0"
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
 
