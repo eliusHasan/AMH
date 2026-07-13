@@ -59,6 +59,24 @@ const techStack = {
   ],
 };
 
+// Hero orbital animation — badges orbit the core on two counter-rotating rings
+const orbitOuter = [
+  { label: "React 19", angle: 0 },
+  { label: "AWS Cloud", angle: 90 },
+  { label: "TypeScript", angle: 180 },
+  { label: "Docker", angle: 270 },
+];
+const orbitInner = [
+  { label: "Next.js 15", angle: 30 },
+  { label: "Python", angle: 150 },
+  { label: "PostgreSQL", angle: 270 },
+];
+
+const orbitPos = (angle: number, radius: number) => ({
+  left: `${50 + radius * Math.cos((angle * Math.PI) / 180)}%`,
+  top: `${50 + radius * Math.sin((angle * Math.PI) / 180)}%`,
+});
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
@@ -120,36 +138,90 @@ export default function Technologies() {
                 </motion.div>
               </div>
 
-              {/* Right Side: Interactive Technology Core Graphic */}
-              <div className="lg:col-span-5 relative w-full h-[320px] flex items-center justify-center">
-                {/* Glowing Core Orb */}
-                <div className="absolute w-36 h-36 rounded-full bg-primary/10 blur-[60px]" />
-                <motion.div
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-[#5379AE] flex items-center justify-center text-white shadow-xl shadow-primary/30 z-10 relative border border-white/20"
-                >
-                  <Cpu className="w-6 h-6 animate-pulse" />
-                </motion.div>
-                
-                {/* Connected Orbit Nodes */}
-                {[
-                  { label: "React 19", x: -90, y: -60, delay: 0 },
-                  { label: "Next.js 15", x: 100, y: -45, delay: 0.5 },
-                  { label: "Python", x: -80, y: 70, delay: 1 },
-                  { label: "AWS Cloud", x: 90, y: 55, delay: 1.5 },
-                ].map((node) => (
+              {/* Right Side: Orbital Technology Core Animation */}
+              <div className="lg:col-span-5 relative w-full h-[380px] sm:h-[480px] flex items-center justify-center">
+                <div className="relative w-[320px] h-[320px] sm:w-[440px] sm:h-[440px]">
+
+                  {/* Ambient glow */}
+                  <div className="absolute inset-0 m-auto w-52 h-52 rounded-full bg-primary/15 blur-[100px]" />
+
+                  {/* Orbit ring guides */}
+                  <div className="absolute inset-0 rounded-full border border-primary/15" />
+                  <div className="absolute inset-[22%] rounded-full border border-dashed border-primary/25" />
+                  <div className="absolute inset-[38%] rounded-full border border-primary/10" />
+
+                  {/* Radar sweep */}
                   <motion.div
-                    key={node.label}
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: node.delay }}
-                    style={{ transform: `translate(${node.x}px, ${node.y}px)` }}
-                    className="absolute p-2.5 px-4 rounded-xl border border-border bg-card/90 shadow-md flex items-center gap-2 backdrop-blur-md text-[10px] font-bold text-foreground font-mono"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: "conic-gradient(from 0deg, rgba(4,116,196,0.16), transparent 30%)" }}
+                  />
+
+                  {/* Outer orbit — badges circle clockwise, labels stay upright */}
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    <span>{node.label}</span>
+                    {orbitOuter.map((node) => (
+                      <div
+                        key={node.label}
+                        className="absolute -translate-x-1/2 -translate-y-1/2"
+                        style={orbitPos(node.angle, 50)}
+                      >
+                        <motion.div
+                          animate={{ rotate: -360 }}
+                          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                          className="px-3.5 py-2 rounded-xl border border-border bg-card/90 shadow-md flex items-center gap-2 backdrop-blur-md text-[10px] font-bold text-foreground font-mono whitespace-nowrap"
+                        >
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                          <span>{node.label}</span>
+                        </motion.div>
+                      </div>
+                    ))}
                   </motion.div>
-                ))}
+
+                  {/* Inner orbit — counter-rotates for depth */}
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0"
+                  >
+                    {orbitInner.map((node) => (
+                      <div
+                        key={node.label}
+                        className="absolute -translate-x-1/2 -translate-y-1/2"
+                        style={orbitPos(node.angle, 28)}
+                      >
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+                          className="px-3 py-1.5 rounded-lg border border-primary/25 bg-primary/10 shadow-sm flex items-center gap-1.5 backdrop-blur-md text-[9px] font-bold text-primary font-mono whitespace-nowrap"
+                        >
+                          <div className="w-1 h-1 rounded-full bg-primary" />
+                          <span>{node.label}</span>
+                        </motion.div>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {/* Glowing core */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative">
+                      <div className="absolute -inset-5 rounded-full bg-primary/25 blur-2xl animate-pulse" />
+                      <div className="absolute -inset-3 rounded-full border border-primary/30 animate-ping [animation-duration:3s]" />
+                      <motion.div
+                        animate={{ scale: [1, 1.06, 1] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-primary to-[#5379AE] flex items-center justify-center text-white shadow-2xl shadow-primary/40 relative border border-white/20"
+                      >
+                        <Cpu className="w-8 h-8 sm:w-10 sm:h-10" />
+                      </motion.div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
             </div>
