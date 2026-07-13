@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { SectionHeader } from "@/components/section-header";
 
 // Slugs must match the ?service= deep links on the services page
 const serviceOptions: { value: string; label: string }[] = [
@@ -211,20 +210,160 @@ export default function Contact() {
       <Navbar />
 
       <main className="flex-grow pt-24">
-        {/* Intro */}
-        <section className="relative py-16 px-4 overflow-hidden text-center">
+        {/* ── Hero: Copy + Animated Chat ── */}
+        <section className="relative py-16 sm:py-20 px-4 overflow-hidden">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/5 blur-[120px] -z-10" />
 
-          <div className="max-w-4xl mx-auto space-y-6">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 border border-primary/20">
-              Get in Touch
-            </span>
-            <h1 className="font-heading font-extrabold text-4xl sm:text-6xl text-foreground tracking-tight leading-tight">
-              Connect With Us
-            </h1>
-            <p className="text-base sm:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              Discuss system requirements, stack migrations, or request a custom digital service quote.
-            </p>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 items-center">
+
+              {/* Left: Copy */}
+              <div className="lg:col-span-6 text-center lg:text-left">
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="space-y-6"
+                >
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 border border-primary/20">
+                    Get in Touch
+                  </span>
+                  <h1 className="font-heading font-extrabold text-4xl sm:text-6xl text-foreground tracking-tight leading-tight">
+                    Let&apos;s Start{" "}
+                    <span className="bg-gradient-to-r from-primary via-accent to-[#5379AE] bg-clip-text text-transparent">
+                      a Conversation
+                    </span>
+                  </h1>
+                  <p className="text-base sm:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    Discuss system requirements, stack migrations, or request a custom digital service quote.
+                  </p>
+
+                  {/* Quick contact chips */}
+                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
+                    <a
+                      href="mailto:sharif.rahman@gmail.com"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-sm text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-300"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-primary" />
+                      sharif.rahman@gmail.com
+                    </a>
+                    <a
+                      href="tel:+8801996338844"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-sm text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-300"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-primary" />
+                      +880 1996-338844
+                    </a>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Right: Animated Chat Mockup */}
+              <div className="lg:col-span-6 relative">
+                <motion.div
+                  initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.9, delay: 0.25, ease: "easeOut" }}
+                  className="relative max-w-md mx-auto"
+                >
+                  {/* Glow */}
+                  <div className="absolute -inset-8 bg-primary/12 blur-[90px] rounded-full -z-10" />
+
+                  {/* Chat window */}
+                  <div className="rounded-3xl border border-border/50 bg-card/85 backdrop-blur-xl shadow-2xl shadow-primary/10 overflow-hidden">
+                    {/* Header */}
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-border/40 bg-secondary/20">
+                      <div className="relative">
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-primary to-[#5379AE] flex items-center justify-center text-white text-xs font-black">
+                          K
+                        </div>
+                        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-card" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-bold text-foreground leading-none">Kodenri Team</div>
+                        <div className="text-[10px] text-emerald-500 font-semibold mt-1">Online — replies within 24h</div>
+                      </div>
+                    </div>
+
+                    {/* Messages */}
+                    <div className="p-5 space-y-3.5">
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7, duration: 0.45 }}
+                        className="flex justify-start"
+                      >
+                        <div className="max-w-[80%] rounded-2xl rounded-tl-md bg-secondary/40 border border-border/40 px-4 py-2.5 text-xs sm:text-sm text-foreground text-left">
+                          Hi! 👋 Tell us about your project.
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.4, duration: 0.45 }}
+                        className="flex justify-end"
+                      >
+                        <div className="max-w-[80%] rounded-2xl rounded-tr-md bg-primary text-primary-foreground px-4 py-2.5 text-xs sm:text-sm text-left shadow-md shadow-primary/20">
+                          We need AI automation for our operations.
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 2.1, duration: 0.45 }}
+                        className="flex justify-start"
+                      >
+                        <div className="max-w-[80%] rounded-2xl rounded-tl-md bg-secondary/40 border border-border/40 px-4 py-2.5 text-xs sm:text-sm text-foreground text-left">
+                          Perfect fit — let&apos;s scope it on a free discovery call.
+                        </div>
+                      </motion.div>
+
+                      {/* Typing indicator */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 2.8, duration: 0.4 }}
+                        className="flex justify-end"
+                      >
+                        <div className="rounded-2xl rounded-tr-md bg-secondary/40 border border-border/40 px-4 py-3 flex items-center gap-1.5">
+                          {[0, 1, 2].map((dot) => (
+                            <motion.span
+                              key={dot}
+                              animate={{ opacity: [0.25, 1, 0.25] }}
+                              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: dot * 0.2 }}
+                              className="w-1.5 h-1.5 rounded-full bg-muted-foreground"
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* Floating chip: response time */}
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-5 -right-2 sm:-right-7 flex items-center gap-2 rounded-full border border-border/50 bg-card/90 backdrop-blur-xl px-4 py-2 shadow-xl"
+                  >
+                    <Clock className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-[10px] font-bold text-foreground whitespace-nowrap">Replies within 24h</span>
+                  </motion.div>
+
+                  {/* Floating chip: free consultation */}
+                  <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -bottom-5 -left-2 sm:-left-7 flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 backdrop-blur-xl px-4 py-2 shadow-xl"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+                    <span className="text-[10px] font-bold text-foreground whitespace-nowrap">Free Consultation</span>
+                  </motion.div>
+                </motion.div>
+              </div>
+
+            </div>
           </div>
         </section>
 
