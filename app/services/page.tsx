@@ -16,7 +16,6 @@ import {
   CheckCircle,
   ArrowRight,
   Sparkles,
-  Terminal,
   Users,
   BadgeCheck,
   Clock,
@@ -44,12 +43,17 @@ const fadeUp: Variants = {
   }),
 };
 
-const consoleLines = [
-  { text: "kodenri init --services", color: "text-[#A8C4EC]" },
-  { text: "✔ AI Agent Core: ACTIVE (12ms latency)", color: "text-emerald-400" },
-  { text: "✔ Edge CDN Server Component Cache: HIT", color: "text-emerald-400" },
-  { text: "✔ Terraform multi-region replica: ONLINE", color: "text-cyan-400" },
-  { text: "✔ Uptime rate verified at 99.98%", color: "text-sky-400" },
+// Hero constellation — one tile per service, deep-linking to its section below
+const heroServices = [
+  { icon: Workflow, id: "ai-automation", label: "AI Automation", tint: "text-pink-400 bg-pink-500/10 border-pink-500/20" },
+  { icon: Bot, id: "ai-solutions", label: "AI Solutions", tint: "text-violet-400 bg-violet-500/10 border-violet-500/20" },
+  { icon: Globe, id: "web-platforms", label: "Web Platforms", tint: "text-blue-400 bg-blue-500/10 border-blue-500/20" },
+  { icon: Smartphone, id: "mobile-apps", label: "Mobile Apps", tint: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" },
+  { icon: Server, id: "backend-apis", label: "Backend & APIs", tint: "text-sky-400 bg-sky-500/10 border-sky-500/20" },
+  { icon: Cloud, id: "cloud-devops", label: "Cloud & DevOps", tint: "text-amber-400 bg-amber-500/10 border-amber-500/20" },
+  { icon: Palette, id: "ui-ux-design", label: "UI/UX Design", tint: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20" },
+  { icon: ShieldCheck, id: "qa-automation", label: "QA & Testing", tint: "text-rose-400 bg-rose-500/10 border-rose-500/20" },
+  { icon: Wrench, id: "sla-support", label: "Maintenance", tint: "text-teal-400 bg-teal-500/10 border-teal-500/20" },
 ];
 
 // Service catalog — titles for the first six match the landing page cards
@@ -289,46 +293,71 @@ export default function Services() {
                 </motion.div>
               </div>
 
-              {/* Right Side: Professional Terminal Mockup */}
-              <div className="lg:col-span-5 w-full">
-                <motion.div
-                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.15 }}
-                  className="rounded-2xl border border-white/10 bg-[#131622]/90 backdrop-blur-md shadow-2xl overflow-hidden text-left font-mono text-xs text-white/90"
-                >
-                  {/* Header bar */}
-                  <div className="flex items-center justify-between px-4 py-3 bg-white/5 border-b border-white/10">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    </div>
-                    <span className="text-[10px] text-white/40 select-none">kodenri-terminal.sh</span>
-                    <Terminal className="w-3.5 h-3.5 text-white/35" />
-                  </div>
+              {/* Right Side: Floating Service Constellation */}
+              <div className="lg:col-span-5 w-full relative">
+                {/* Ambient glow */}
+                <div className="absolute inset-0 m-auto w-64 h-64 rounded-full bg-primary/15 blur-[110px] -z-10" />
 
-                  {/* Console Output */}
-                  <div className="p-5 space-y-3 font-mono text-[11px] sm:text-xs">
-                    {consoleLines.map((line, idx) => (
+                <div className="grid grid-cols-3 gap-3.5 sm:gap-4 max-w-md mx-auto">
+                  {heroServices.map((s, i) => {
+                    const Icon = s.icon;
+                    return (
                       <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 + idx * 0.15, duration: 0.4 }}
-                        className={`flex gap-2 items-start ${line.color}`}
+                        key={s.id}
+                        initial={{ opacity: 0, y: 24, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.25 + i * 0.08, ease: "easeOut" }}
                       >
-                        <span className="text-white/35 select-none">{idx + 1}</span>
-                        <span>{line.text}</span>
+                        <motion.a
+                          href={`#${s.id}`}
+                          animate={{ y: [0, -7, 0] }}
+                          transition={{ duration: 4.5 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.45 }}
+                          className="group aspect-square rounded-2xl border border-border/50 bg-card/75 backdrop-blur-md shadow-lg flex flex-col items-center justify-center gap-2.5 p-3 hover:border-primary/50 hover:shadow-primary/15 hover:shadow-xl transition-colors duration-300 cursor-pointer"
+                        >
+                          <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl border flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${s.tint}`}>
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <span className="text-[9px] sm:text-[10px] font-bold text-muted-foreground group-hover:text-foreground text-center leading-tight transition-colors duration-300">
+                            {s.label}
+                          </span>
+                        </motion.a>
                       </motion.div>
-                    ))}
+                    );
+                  })}
+                </div>
 
-                    {/* Pulsing prompt line */}
-                    <div className="flex gap-2 items-center text-white/50 pt-2">
-                      <span className="text-white/35 select-none">{consoleLines.length + 1}</span>
-                      <span className="w-1.5 h-3.5 bg-[#A8C4EC] animate-pulse" />
-                    </div>
-                  </div>
+                {/* Floating chip: service count */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 1.1 }}
+                  className="absolute -top-5 -right-1 sm:right-4"
+                >
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="flex items-center gap-2 rounded-full border border-primary/25 bg-primary/15 backdrop-blur-xl px-4 py-2 shadow-xl"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-[10px] font-bold text-foreground whitespace-nowrap">9 Core Services</span>
+                  </motion.div>
+                </motion.div>
+
+                {/* Floating chip: delivery promise */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 1.3 }}
+                  className="absolute -bottom-5 -left-1 sm:left-4"
+                >
+                  <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/15 backdrop-blur-xl px-4 py-2 shadow-xl"
+                  >
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-[10px] font-bold text-foreground whitespace-nowrap">End-to-End Delivery</span>
+                  </motion.div>
                 </motion.div>
               </div>
 

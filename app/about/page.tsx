@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { Award, Rocket, Globe, TrendingUp, ArrowRight } from "lucide-react";
+import { Clock, ShieldCheck, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -15,13 +15,6 @@ const fadeUp: Variants = {
     transition: { duration: 0.6, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] },
   }),
 };
-
-const stats = [
-  { value: "10+", label: "Years with Japanese Enterprises", icon: Award },
-  { value: "2026", label: "Kodenri Founded", icon: Rocket },
-  { value: "100+", label: "Projects Delivered", icon: Globe },
-  { value: "24/7", label: "Support Available", icon: TrendingUp },
-];
 
 // Values rooted in the Japanese engineering culture the team grew up in
 const values = [
@@ -123,28 +116,64 @@ export default function About() {
                 </motion.div>
               </div>
 
-              {/* Right Side: Stats Grid */}
+              {/* Right Side: Team Image with Floating Badges */}
               <div className="lg:col-span-5 w-full">
-                <div className="grid grid-cols-2 gap-4">
-                  {stats.map((stat, i) => (
-                    <motion.div
-                      key={stat.label}
-                      custom={i}
-                      initial="hidden"
-                      animate="visible"
-                      variants={fadeUp}
-                      className="p-5 rounded-2xl border border-border/50 bg-card/85 backdrop-blur-md shadow-lg hover:border-primary/30 hover:bg-card transition-all duration-300 flex flex-col gap-3 text-left"
-                    >
-                      <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                        <stat.icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="font-heading font-black text-2xl sm:text-3xl text-foreground">{stat.value}</div>
-                        <div className="text-[10px] text-muted-foreground font-semibold tracking-wider uppercase mt-1">{stat.label}</div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+                  className="relative max-w-md mx-auto lg:max-w-none"
+                >
+                  {/* Glow behind image */}
+                  <div className="absolute -inset-8 bg-primary/15 blur-[90px] rounded-full -z-10" />
+
+                  {/* Image card */}
+                  <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-border/40 shadow-2xl shadow-primary/10 ring-1 ring-black/5">
+                    <Image
+                      src="/about-hero.png"
+                      alt="The Kodenri engineering team at work"
+                      fill
+                      className="object-cover object-center"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
+                    {/* Caption inside image — top-left, clear of the floating badges */}
+                    <div className="absolute top-4 left-5 right-5">
+                      <div className="text-sm font-bold text-white drop-shadow">The Kodenri Team</div>
+                      <div className="text-[11px] text-white/75">Engineering with Japanese discipline</div>
+                    </div>
+                  </div>
+
+                  {/* Floating badge: experience */}
+                  <motion.div
+                    animate={{ y: [0, -9, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-6 -right-3 sm:-right-7 rounded-xl border border-border/50 bg-card/90 backdrop-blur-xl px-4 py-3 shadow-xl flex items-center gap-3"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                      <Clock className="w-4.5 h-4.5" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-heading font-black text-lg text-foreground leading-none">24/7</div>
+                      <div className="text-[9px] text-muted-foreground font-semibold tracking-wider uppercase mt-1">Support Available</div>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating badge: projects */}
+                  <motion.div
+                    animate={{ y: [0, 9, 0] }}
+                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -bottom-6 -left-3 sm:-left-7 rounded-xl border border-border/50 bg-card/90 backdrop-blur-xl px-4 py-3 shadow-xl flex items-center gap-3"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                      <ShieldCheck className="w-4.5 h-4.5" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-heading font-black text-lg text-foreground leading-none">100%</div>
+                      <div className="text-[9px] text-muted-foreground font-semibold tracking-wider uppercase mt-1">Client Data Privacy</div>
+                    </div>
+                  </motion.div>
+                </motion.div>
               </div>
 
             </div>
