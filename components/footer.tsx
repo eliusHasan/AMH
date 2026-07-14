@@ -92,8 +92,6 @@ export function Footer() {
               {[
                 { href: "/about", label: "About Us" },
                 { href: "/technologies", label: "Tech Stack" },
-                { href: "/careers", label: "Careers" },
-                { href: "/blog", label: "Insights Blog" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
